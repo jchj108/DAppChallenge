@@ -1,4 +1,4 @@
-package com.example.dappchallenge;
+package com.opusm.dappchallenge;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
