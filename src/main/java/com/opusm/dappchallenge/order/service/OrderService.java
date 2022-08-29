@@ -32,6 +32,10 @@ public class OrderService {
 
         long earnPoint = 0;
         Long cost = item.getPrice() * orderReq.getQuantity();
+
+        if(orderReq.getOrderPrice() < cost) {
+            throw new GeneralException(Code.BAD_REQUEST, "상품 금액에 비해 지불 금액이 적습니다.");
+        }
         if(orderReq.getPayType() == PayType.CASH) {
             if (user.getAsserts() < cost) {
                 throw new GeneralException(Code.BAD_REQUEST, "돈이 모자랍니다");

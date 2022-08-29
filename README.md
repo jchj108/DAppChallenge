@@ -78,6 +78,173 @@ CREATE TABLE `Item` (
 <img width="1401" alt="image" src="https://user-images.githubusercontent.com/75921378/187206638-f66cdfbb-538a-4cd8-9666-dea280fca34e.png">
 
 
-## 구현 API
+## API 예시
+
+```
+POST /user/signUp
+    
+Request
+{
+    "userId":"test2"
+    "password":"1"
+    "asserts":100000
+    "point":10000    
+}
+    
+Response
+{
+    "success": true,
+    "code": 0,
+    "message": "Ok",
+    "data": {
+        "userId": "test",
+        "asserts": 100000,
+        "point": 10000
+    }
+}
+```
+
+```
+GET /user/{userId}
+    
+Response
+{
+    "success": true,
+    "code": 0,
+    "message": "Ok",
+    "data": {
+        "userId": "test",
+        "asserts": 100000,
+        "point": 10000
+    }
+}
+```
+
+```
+POST /items/item
+
+Request
+{
+    "name":"test"
+    "price":100
+    "pointRate":10
+    "amount":100
+    "owner":"jch"
+}
+
+Response
+{
+    "success": true,
+    "code": 0,
+    "message": "Ok",
+    "data": {
+        "itemId": 1,
+        "name": "test",
+        "price": 100,
+        "pointRate": 10.0,
+        "amount": 100,
+        "owner": "jch"
+    }
+}
+```
+
+```
+GET /Items/{itemId}
+
+Response
+{
+    "success": true,
+    "code": 0,
+    "message": "Ok",
+    "data": {
+        "itemId": 1,
+        "name": "test",
+        "price": 100,
+        "pointRate": 10.0,
+        "amount": 100,
+        "owner": "jch"
+    }
+}
+
+Response (fail)    
+{
+    "success": false,
+    "code": 10002,
+    "message": "Requested resource is not found - 해당 상품이 없습니다."
+}
+```
+
+```
+POST /orders/order
+
+{
+    "userId":"test"
+    "itemId":1
+    "quantity":2
+    "orderPrice":100
+    "payType":CASH
+}
+
+Response (상품 가격 * 수량보다 지불 금액이 부족한 경우)
+{
+    "success": false,
+    "code": 10000,
+    "message": "Bad request - 지불 금액이 모자랍니다. 상품 금액을 확인해주세요."
+}
+
+Response (재고 부족)
+{
+    "success": false,
+    "code": 10000,
+    "message": "Bad request - 재고가 부족합니다"
+}
+
+Response (보유 잔고 부족)
+{
+    "success": false,
+    "code": 10000,
+    "message": "Bad request - 포인트가 모자랍니다"
+}
+
+Response (주문 성공)
+{
+    "success": true,
+    "code": 0,
+    "message": "Ok",
+    "data": {
+        "orderId": 1,
+        "orderDate": "2022-08-29T23:14:55.966763",
+        "earnPoint": 200,
+        "user": {
+            "userId": "test",
+            "password": "1",
+            "asserts": 98000,
+            "point": 1200,
+            "orderList": [
+                {
+                    "orderId": 1,
+                    "orderDate": "2022-08-29T23:14:55.966763",
+                    "orderItemList": [
+                        {
+                            "orderItemId": 1,
+                            "quantity": 2,
+                            "orderPrice": 1000,
+                            "item": {
+                                "itemId": 1,
+                                "name": "test",
+                                "price": 1000,
+                                "pointRate": 10.0,
+                                "amount": 1,
+                                "owner": "jch"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}
 
 
+
+```
