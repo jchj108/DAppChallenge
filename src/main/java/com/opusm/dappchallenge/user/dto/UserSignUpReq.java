@@ -1,11 +1,13 @@
 package com.opusm.dappchallenge.user.dto;
 
 import com.opusm.dappchallenge.user.domain.User;
+import lombok.Builder;
 import lombok.Getter;
 
 import javax.validation.constraints.NotEmpty;
 
 @Getter
+@Builder
 public class UserSignUpReq {
     @NotEmpty
     private String userId;

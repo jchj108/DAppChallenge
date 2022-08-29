@@ -9,9 +9,9 @@ import com.opusm.dappchallenge.user.dto.UserSignUpReq;
 import com.opusm.dappchallenge.user.repository.UserRepository;
 import com.opusm.dappchallenge.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +24,7 @@ public class UserController {
     private final UserRepository userRepository;
 
     @PostMapping(path = "/signUp")
-    public DataResponseDto<Object> signUp(@Validated UserSignUpReq userSignUpReq) throws Exception {
+    public DataResponseDto<Object> signUp(@Valid UserSignUpReq userSignUpReq) throws Exception {
 
         userRepository.findById(userSignUpReq.getUserId())
                 .ifPresent(m -> {
@@ -37,7 +37,7 @@ public class UserController {
     public DataResponseDto<Object> findById(@PathVariable("userId") String userId) throws Exception {
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new GeneralException(Code.BAD_REQUEST, "유저가 없습니다."));
+                .orElseThrow(() -> new GeneralException(Code.NOT_FOUND, "유저가 없습니다."));
 
         return DataResponseDto.of(new UserRes(user));
     }

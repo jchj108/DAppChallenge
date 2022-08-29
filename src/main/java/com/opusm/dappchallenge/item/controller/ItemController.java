@@ -31,7 +31,7 @@ public class ItemController {
     @GetMapping(path = "/{itemId}")
     public DataResponseDto<Object> findById(@PathVariable("itemId") Long itemId) throws Exception {
         Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new GeneralException(Code.BAD_REQUEST, "아이템이 없습니다."));
+                .orElseThrow(() -> new GeneralException(Code.NOT_FOUND, "해당 상품이 없습니다."));
         return DataResponseDto.of(new ItemRes(item));
     }
 

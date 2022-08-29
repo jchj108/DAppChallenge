@@ -26,9 +26,9 @@ public class OrderService {
     @Transactional
     public OrderRes order(OrderReq orderReq) {
         Item item = itemRepository.findById(orderReq.getItemId())
-                .orElseThrow(() -> new GeneralException(Code.BAD_REQUEST, "아이템이 없습니다."));
+                .orElseThrow(() -> new GeneralException(Code.NOT_FOUND, "아이템이 없습니다."));
         User user = userRepository.findById(orderReq.getUserId())
-                .orElseThrow(() -> new GeneralException(Code.BAD_REQUEST, "유저가 없습니다."));
+                .orElseThrow(() -> new GeneralException(Code.NOT_FOUND, "유저가 없습니다."));
 
         long earnPoint = 0;
         Long cost = item.getPrice() * orderReq.getQuantity();
