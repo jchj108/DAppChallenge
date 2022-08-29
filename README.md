@@ -17,6 +17,10 @@
 3. JAVA 17
 4. Spring boot 2.6.7
 
+## ERD
+
+<img width="466" alt="image" src="https://user-images.githubusercontent.com/75921378/187207337-cc77ad0b-c943-4f01-af59-af0b2e9ea0cd.png">
+
 ## DDL
 
 ```
