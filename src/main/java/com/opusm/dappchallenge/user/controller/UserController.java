@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = "/user")
@@ -37,5 +40,18 @@ public class UserController {
                 .orElseThrow(() -> new GeneralException(Code.BAD_REQUEST, "유저가 없습니다."));
 
         return DataResponseDto.of(new UserRes(user));
+    }
+
+    @GetMapping(path = "")
+    public DataResponseDto<Object> findAll() throws Exception {
+        List<User> userList = userRepository.findAll();
+        if (userList.size() == 0) {
+            throw new GeneralException(Code.NOT_FOUND, "유저가 없습니다");
+        }
+        List<UserRes> resList = new ArrayList<>();
+        for (User user : userList) {
+            resList.add(new UserRes(user));
+        }
+        return DataResponseDto.of(resList);
     }
 }
