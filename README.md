@@ -19,19 +19,28 @@
 
 ## ERD
 
-<img width="466" alt="image" src="https://user-images.githubusercontent.com/75921378/187207337-cc77ad0b-c943-4f01-af59-af0b2e9ea0cd.png">
+<img width="442" alt="image" src="https://user-images.githubusercontent.com/75921378/187212277-527e0002-f589-4f42-9f68-ec3bfbbe157c.png">
 
 ## DDL
 
 ```
-CREATE TABLE `Item` (
-  `itemId` bigint NOT NULL AUTO_INCREMENT,
-  `amount` bigint DEFAULT NULL,
-  `name` varchar(255) NOT NULL,
-  `owner` varchar(255) NOT NULL,
-  `pointRate` double DEFAULT '0',
-  `price` bigint DEFAULT NULL,
-  PRIMARY KEY (`itemId`)
+CREATE TABLE `Users` (
+  `userId` varchar(255) NOT NULL,
+  `asserts` bigint DEFAULT '0',
+  `password` varchar(255) DEFAULT NULL,
+  `point` bigint DEFAULT '0',
+  PRIMARY KEY (`userId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+```
+
+```
+CREATE TABLE `Orders` (
+  `orderId` bigint NOT NULL AUTO_INCREMENT,
+  `orderDate` datetime DEFAULT NULL,
+  `userId` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`orderId`),
+  KEY `FKipog0as9ckoo6qf2t0lwk3mbe` (`userId`),
+  CONSTRAINT `FKipog0as9ckoo6qf2t0lwk3mbe` FOREIGN KEY (`userId`) REFERENCES `Users` (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
@@ -51,23 +60,14 @@ CREATE TABLE `OrderItem` (
 ```
 
 ```
-CREATE TABLE `Orders` (
-  `orderId` bigint NOT NULL AUTO_INCREMENT,
-  `orderDate` datetime DEFAULT NULL,
-  `userId` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`orderId`),
-  KEY `FKd9e8w9v9hjt780w7ivi7po9wc` (`userId`),
-  CONSTRAINT `FKd9e8w9v9hjt780w7ivi7po9wc` FOREIGN KEY (`userId`) REFERENCES `User` (`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-```
-
-```
-CREATE TABLE `User` (
-  `userId` varchar(255) NOT NULL,
-  `asserts` bigint DEFAULT '0',
-  `password` varchar(255) DEFAULT NULL,
-  `point` bigint DEFAULT '0',
-  PRIMARY KEY (`userId`)
+CREATE TABLE `Item` (
+  `itemId` bigint NOT NULL AUTO_INCREMENT,
+  `amount` bigint DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `pointRate` double DEFAULT '0',
+  `price` bigint DEFAULT NULL,
+  PRIMARY KEY (`itemId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 ```
 
