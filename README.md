@@ -244,7 +244,8 @@ Response (주문 성공)
         }
     }
 }
-
-
-
 ```
+
+## Notice
+
+1. 상품 주문 성공 시 Response earnPoint로 적립된 포인트를 확인 가능합니다.
